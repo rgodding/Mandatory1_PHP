@@ -1,13 +1,13 @@
 <?php
 require_once 'Database.php';
 
-class Employee extends Database
+class Project extends Database
 {
     function getAll(): array|false
     {
         $sql = <<<SQL
-        SELECT employeeId, firstName, lastName, birth
-        FROM employee
+        SELECT projectId, name
+        FROM project
         SQL;
         try {
             $stmt = $this->pdo->prepare($sql);
@@ -23,22 +23,22 @@ class Employee extends Database
     {
         $sql = <<<SQL
         SELECT name
-        FROM employee
-        WHERE employeeId = :employeeId
+        FROM project
+        WHERE projectId = :projectId
         SQL;
         try {
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(':employeeId', $id);
+            $stmt->bindValue(':projectId', $id);
             $stmt->execute();
 
             if ($stmt->rowCount() === 1) {
                 return $stmt->fetch();
             }
-            // No employee found
+            // No project found
             return false;
         } catch (PDOException $e) {
-            // Error fetching employee
-            // TODO: log the error and distinguish from no employee found
+            // Error fetching project
+            // TODO: log the error and distinguish from no project found
             return false;
         }
     }
