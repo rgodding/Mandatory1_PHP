@@ -80,6 +80,7 @@ class Department extends Database
             return false;
         }
     }
+    
     function delete(int $departmentId): bool {
         $sql = <<<SQL
         DELETE FROM department
@@ -95,5 +96,4 @@ class Department extends Database
             return false;
         }
     }
-
 };

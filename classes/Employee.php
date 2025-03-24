@@ -119,5 +119,23 @@ class Employee extends Database
         }
     }
 
+    function getByDepartmentId(int $departmentId): array|false
+    {
+        $sql = <<<SQL
+        SELECT employeeId, firstName, lastName, birth
+        FROM employee
+        WHERE departmentId = :departmentId
+        SQL;
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':departmentId', $departmentId, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
 
 };

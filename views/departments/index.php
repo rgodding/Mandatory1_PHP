@@ -32,6 +32,9 @@ foreach ($departments as $department) {
         <tr>
             <td>{$department['departmentId']}</td>
             <td>{$department['name']}</td>
+            <td>
+                <button><a href="edit.php?id={$department['departmentId']}">Edit</a></button>
+            </td>
         </tr>
 HTML;
 }
