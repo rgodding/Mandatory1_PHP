@@ -9,7 +9,7 @@ class Employee extends Database
     function getAll(): array|false
     {
         $sql = <<<SQL
-        SELECT employeeId, firstName, lastName, birth
+        SELECT employeeId, firstName, lastName, email, birth, departmentId
         FROM employee
         SQL;
         try {
@@ -46,15 +46,16 @@ class Employee extends Database
         }
     }
 
-    function add(string $firstName, string $lastName, string $birth, int $departmentId): bool {
+    function add(string $firstName, string $lastName, string $email, string $birth, string $departmentId): bool {
         $sql = <<<SQL
-        INSERT INTO employee (firstName, lastName, birth, departmentId)
-        VALUES (:firstName, :lastName, :birth, :departmentId)
+        INSERT INTO employee (firstName, lastName, email, birth, departmentId)
+        VALUES (:firstName, :lastName, :email, :birth, :departmentId)
         SQL;
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindValue(':firstName', $firstName);
             $stmt->bindValue(':lastName', $lastName);
+            $stmt->bindValue(':email', $email);
             $stmt->bindValue(':birth', $birth);
             $stmt->bindValue(':departmentId', $departmentId, PDO::PARAM_INT);
             return $stmt->execute();

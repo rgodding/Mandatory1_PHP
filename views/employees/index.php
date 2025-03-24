@@ -25,7 +25,10 @@ echo <<<HTML
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Email</th>
             <th>Birth</th>
+            <th>Department</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody class="data-table-body">
@@ -36,13 +39,23 @@ foreach ($employees as $employee) {
             <td>{$employee['employeeId']}</td>
             <td>{$employee['firstName']}</td>
             <td>{$employee['lastName']}</td>
+            <td>{$employee['email']}</td>
             <td>{$employee['birth']}</td>
+            <td>{$employee['departmentId']}</td>
+            <td>
+                <button>
+                    <a href="edit.php?id={$employee['employeeId']}">Edit</a>
+                </button>
+            </td>
         </tr>
 HTML;
 }
 echo <<<HTML
     </tbody>
 </table>
+<button>
+    <a href="add.php">Add Employee</a>
+</button>
 HTML;
 ?>
 

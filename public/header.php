@@ -6,8 +6,8 @@
     <title>Company</title>
     <!-- STYLE SHEETS
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-    <link rel="stylesheet" href="/css/styles.css">
     -->
+    <link rel="stylesheet" href="/Mandatory1_PHP/css/styles.css">
 </head>
 <body>
     <header>

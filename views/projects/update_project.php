@@ -17,22 +17,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Add an employee to a project
-        if($action==='add_employee') {
+        if ($action === 'add_employee') {
             // $employees = (new Employee())->getAll();
             $result = $projectDb->addEmployeeToProject($employeeId, $projectId);
             $projectDb = new Project();
             if (!$result) {
                 die("Employee already assigned to project.");
             }
-        // Remove an employee from a project
-        } elseif ($action==='remove_employee') {
+            // Remove an employee from a project
+        } elseif ($action === 'remove_employee') {
             $result = $projectDb->removeEmployeeFromProject($employeeId, $projectId);
             $projectDb = new Project();
             if (!$result) {
                 die("Employee not found in project.");
             }
-        // Update a project, right now only name can be updated
-        } elseif ($action==='update_project'){
+            // Update a project, right now only name can be updated
+        } elseif ($action === 'update_project') {
             $result = $projectDb->update($projectId, $_POST['name']);
             $projectDb = new Project();
             if (!$result) {

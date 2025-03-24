@@ -23,6 +23,7 @@ echo <<<HTML
         <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody class="data-table-body">
@@ -41,9 +42,7 @@ HTML;
 echo <<<HTML
     </tbody>
 </table>
-<button>
-    <a href="add.php">Add Department</a>
-</button>
+<button><a href="add.php">Add Department</a></button>
 HTML;
 ?>
 

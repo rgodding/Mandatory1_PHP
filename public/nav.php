@@ -6,20 +6,19 @@ $pages = [
     'employees',
     'projects'
 ];
+
 ?>
 
-<nav>
-    <ul>
-        <li>
-            <a href="<?= BASE_URL ?>">Home</a>
-        </li>
-        <?php
-        foreach ($pages as $page) {
-            echo '<li>';
-            echo '<a href="' . BASE_URL . '/views/' . $page . '">' . $page . '</a>';
-            echo '</li>';
-        };
-        ?>
-    </ul>
+<nav class="nav-bar">
+    <li class="nav-item">
+        <a href="<?= BASE_URL ?>">Home</a>
+    </li>
+    <?php
+    foreach ($pages as $page) {
+        echo '<li class="nav-item">';
+        echo '<a href="' . BASE_URL . '/views/' . $page . '">' . $page . '</a>';
+        echo '</li>';
+    };
+    ?>
 
 </nav>
