@@ -7,6 +7,7 @@ include_once ROOT_PATH . '/public/nav.php';
 
 
 require_once ROOT_PATH . '/classes/Project.php';
+require_once ROOT_PATH . '/classes/Employee.php';
 
 $projects = (new Project())->getAll();
 
@@ -24,6 +25,7 @@ echo <<<HTML
         <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody class="data-table-body">
@@ -33,6 +35,9 @@ foreach ($projects as $project) {
         <tr>
             <td>{$project['projectId']}</td>
             <td>{$project['name']}</td>
+            <td>
+                <button><a href="edit.php?id={$project['projectId']}">Edit</a></button>
+            </td>
         </tr>
 HTML;
 }

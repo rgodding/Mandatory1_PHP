@@ -38,6 +38,9 @@ HTML;
 echo <<<HTML
     </tbody>
 </table>
+<button>
+    <a href="add.php">Add Department</a>
+</button>
 HTML;
 ?>
 
