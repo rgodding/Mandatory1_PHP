@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? null;
     $employeeDb = new Employee();
     error_log("STARTING TO UPDATE EMPLOYEE");
-    
+
     try {
         // Add an employee to a project
         if ($action === 'update_employee') {
@@ -29,6 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
             if (!$result) {
                 die("Failed to update employee.");
+            }
+        } elseif ($action === 'delete_employee') {
+            $result = $employeeDb->delete((int)$_POST['id']);
+            if (!$result) {
+                die("Error deleting employee.");
             }
         } else {
             die("Invalid action.");
@@ -45,6 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
+
+
 $employee = (new Employee())->getById($_GET['id']);
 
 if (!$employee) {
@@ -52,6 +59,7 @@ if (!$employee) {
 }
 
 ?>
+
 <body>
     <h1>Edit Employee</h1>
     <form action="edit.php" method="POST">
@@ -85,6 +93,13 @@ if (!$employee) {
         <input type="hidden" name="id" value="<?= $employee['employeeId'] ?>">
         <input type="hidden" name="action" value="update_employee">
         <button type="submit">Save Changes</button>
+    </form>
+
+    <h1>Delete Employee</h1>
+    <form action="edit.php" method="POST">
+        <input type="hidden" name="id" value="<?= $employee['employeeId'] ?>">
+        <input type="hidden" name="action" value="delete_employee">
+        <button type="submit">Delete Employee</button>
     </form>
 </body>
 
