@@ -31,6 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 die("Failed to update employee.");
             }
         } elseif ($action === 'delete_employee') {
+            error_log("DELETING EMPLOYEE");
+            error_log("ID: " . $_POST['id']);
             $result = $employeeDb->delete((int)$_POST['id']);
             if (!$result) {
                 die("Error deleting employee.");

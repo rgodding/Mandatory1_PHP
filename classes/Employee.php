@@ -86,16 +86,15 @@ class Employee extends Database
             return false;
         }
     }
-    function delete(int $departmentId): bool {
+    function delete(int $employeeId): bool {
         $sql = <<<SQL
-        DELETE FROM department
-        WHERE departmentId = :departmentId
+        DELETE FROM employee
+        WHERE employeeId = :employeeId
         SQL;
         try {
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(':departmentId', $departmentId, PDO::PARAM_INT);
-            $stmt->execute();
-            return true;
+            $stmt->bindValue(':employeeId', $employeeId, PDO::PARAM_INT);
+            return $stmt->execute();
         } catch (PDOException $e) {
             error_log($e->getMessage());
             return false;
