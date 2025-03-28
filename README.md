@@ -37,3 +37,6 @@ include_once ROOT_PATH . '/public/nav.php';
 ?>
 ```
 2. Insert New page into Nav
+# TODO
+1. Departments are hardcoded, have them brought from Database into relevant areas of code, so it is dynamic
+   1. Add & Edit Employee affected by this

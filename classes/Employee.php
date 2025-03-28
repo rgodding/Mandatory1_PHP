@@ -22,16 +22,16 @@ class Employee extends Database
         }
     }
 
-    function getById(int $id): array|false
+    function getById(int $employeeId): array|false
     {
         $sql = <<<SQL
-        SELECT name
+        SELECT employeeId, firstName, lastName, email, birth, departmentId
         FROM employee
         WHERE employeeId = :employeeId
         SQL;
         try {
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(':employeeId', $id);
+            $stmt->bindValue(':employeeId', $employeeId, PDO::PARAM_INT);
             $stmt->execute();
 
             if ($stmt->rowCount() === 1) {
@@ -65,17 +65,19 @@ class Employee extends Database
         }
     }
 
-    function update(string $firstName, string $lastName, string $birth, int $departmentId): bool 
+    function update(int $employeeId, string $firstName, string $lastName, string $email, string $birth, int $departmentId): bool 
     {
         $sql = <<<SQL
-        UPDATE department
-        SET name = :name
-        WHERE departmentId = :departmentId
+        UPDATE employee
+        SET firstName = :firstName, lastName = :lastName, email = :email, birth = :birth, departmentId = :departmentId
+        WHERE employeeId = :employeeId
         SQL;
         try {
             $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':employeeId', $employeeId, PDO::PARAM_INT);
             $stmt->bindValue(':firstName', $firstName);
             $stmt->bindValue(':lastName', $lastName);
+            $stmt->bindValue(':email', $email);
             $stmt->bindValue(':birth', $birth);
             $stmt->bindValue(':departmentId', $departmentId, PDO::PARAM_INT);
             return $stmt->execute();

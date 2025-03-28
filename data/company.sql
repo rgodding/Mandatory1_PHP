@@ -34,7 +34,8 @@ CREATE TABLE employee_project (
     PRIMARY KEY (employeeId, projectId)
 )
 -- Insert Data
-INSERT INTO department (name) VALUES 
+INSERT INTO department (name) VALUES
+('Unassigned'), 
 ('HR'), 
 ('IT'), 
 ('Finance');

@@ -82,6 +82,25 @@ class Department extends Database
     }
     
     function delete(int $departmentId): bool {
+        if($departmentId === 1) {
+            // Cannot delete the default department
+            return false;
+        }
+        // Assign all employees to the default department (id = 1)
+        $sql = <<<SQL
+        UPDATE employee
+        SET departmentId = 1
+        WHERE departmentId = :departmentId
+        SQL;
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':departmentId', $departmentId, PDO::PARAM_INT);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }        
+        // Delete the department
         $sql = <<<SQL
         DELETE FROM department
         WHERE departmentId = :departmentId

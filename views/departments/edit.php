@@ -9,6 +9,31 @@ include_once ROOT_PATH . '/public/nav.php';
 require_once ROOT_PATH . '/classes/Department.php';
 require_once ROOT_PATH . '/classes/Employee.php';
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'] ?? null;
+    try {
+        // Add an employee to a project
+        if($action==='delete') {
+            // $employees = (new Employee())->getAll()
+            $result = (new Department())->delete($_POST['id']);
+            if (!$result) {
+                die("Error deleting department.");
+            }
+        } else {
+            die("Invalid action.");
+        }
+    } catch (PDOException $e) {
+        // Log the error
+        error_log($e->getMessage());
+        header("Location: index.php");
+        exit;
+    }
+
+    // Redirect back to the department index
+    header("Location: index.php");
+    exit;
+}
+
 $departmentEmployees = (new Employee())->getByDepartmentId($_GET['id']);
 $employees = (new Employee())->getAll();
 
@@ -62,6 +87,14 @@ $department = (new Department())->getById($departmentId);
         </li>
     <?php endforeach; ?>
 </ul>
+<!-- Unavailable for now because delete method hasn't been implemented proper yet
+    <h1>Delete Department</h1>
+    <form action="edit.php" method="POST">
+        <input type="hidden" name="id" value="<?= $departmentId ?>">
+        <input type="hidden" name="action" value="delete">
+        <button type="submit">Delete Department</button>
+    </form>
+-->
 </body>
 
 </html>
