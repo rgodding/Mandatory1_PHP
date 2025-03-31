@@ -86,7 +86,22 @@ class Employee extends Database
             return false;
         }
     }
+    
     function delete(int $employeeId): bool {
+        // Delete all projects associated with the employee first
+        $sql = <<<SQL
+        DELETE FROM employee_project
+        WHERE employeeId = :employeeId
+        SQL;
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':employeeId', $employeeId, PDO::PARAM_INT);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+        // Now delete the employee
         $sql = <<<SQL
         DELETE FROM employee
         WHERE employeeId = :employeeId
